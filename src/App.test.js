@@ -1,10 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import {shallow, mount, render} from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import renderer from 'react-test-renderer'
-import firebase from './firebase'
-import db, { data_db_mock } from './db_mock'
+import { db, docName } from './firebase'
+import db_mock from './db_mock'
+
+// change to use real firebase API calls or mock ones
+const shouldUseMock = true 
 
 describe('<App />', () => {
 	it('renders without crashing', () => {
@@ -96,35 +99,51 @@ describe('<App />', () => {
 		})
 	})
 
-	it('should be able to load mock data (mock firebase API call)', () => {
-		jest.mock('./firebase')
-		// const getDataSpy = jest.spyOn(firebase.firestore().collection('notes'), 'get')
-		firebase.firestore().collection('notes').get = jest.fn().mockImplementation(() => data_db_mock)
+	if (shouldUseMock) {
+		it('should call mock firebase API once every loadData() called', () => {
+			db.get = jest.fn().mockImplementation(db_mock.get)
 
-		const app = shallow(<App />)
-		return app.instance().loadData().then(res=> {
-			expect(app.state().notes).toBe(data_db_mock)
-		})
-	})
-
-	it('should be able to save notes to database and load same data (real firebase API call)', () => {
-	 	window.alert = jest.fn()
-		const app = shallow(<App />)
-
-		// store new data
-		const notes = [{color: 'blue', text: 'hello blue'}, {color: 'grey', text: 'hi grey'}]
-		app.setState({notes})
-		return app.instance().saveData().then(res => {
-			expect(res).toBe('success')
-			expect(window.alert).toBeCalledWith('notes saved in database')
-			
-			// loading method that will check the amount of notes
+			const app = shallow(<App />)
+			expect(db.get).toBeCalledTimes(1) // called once when App mounted via componentWillMount()
 			return app.instance().loadData().then(res => {
+				expect(db.get).toBeCalledTimes(2)
 				expect(res).toBe('success')
-				expect(app.state().notes).toEqual(notes)
 			})
 		})
-	})
+
+		it('should be able to save data with mock firebase API call', () => {
+			window.alert = jest.fn()
+			db.doc = jest.fn().mockImplementation(db_mock.doc)
+
+			const app = shallow(<App />)
+			expect(db.doc).toBeCalledTimes(0)
+
+			return app.instance().saveData().then(res => {
+				expect(window.alert).toBeCalledWith('notes saved in database')
+				expect(res).toBe('success')
+				expect(db.doc).toBeCalledTimes(1)
+			}).catch(e => console.log('error to save'))
+		})
+	} else {		
+		it('should be able to save notes to database and load same data with real firebase API call', () => {
+		 	window.alert = jest.fn()
+			const app = shallow(<App />)
+
+			// store new data
+			const notes = [{color: 'blue', text: 'hello blue'}, {color: 'grey', text: 'hi grey'}]
+			app.setState({notes})
+			return app.instance().saveData().then(res => {
+				expect(res).toBe('success')
+				expect(window.alert).toBeCalledWith('notes saved in database')
+				
+				// loading method that will check the amount of notes
+				return app.instance().loadData().then(res => {
+					expect(res).toBe('success')
+					expect(app.state().notes).toEqual(notes)
+				})
+			})
+		})
+	}	
 
 	it('should be able to change state color', () => {
 		const app = mount(<App />)
