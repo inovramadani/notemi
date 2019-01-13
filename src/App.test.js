@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import Note from './components/Note'
 import {shallow, mount, render} from 'enzyme'
 import renderer from 'react-test-renderer'
 import firebase from './firebase'
