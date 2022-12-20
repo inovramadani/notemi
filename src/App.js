@@ -30,12 +30,16 @@ class App extends Component {
     return (
       <div className="App">
         <h1 className="title center">{title}</h1>
-        <Button id="btn-save" onClick={this.handleClickSave}>Save</Button>
         <div className="input-note">
-          <input id="input-new-note" value={text} onChange={this.handleChangeText} />
-          <Button id="btn-add" onClick={this.handleClickAddNote}>Add note</Button>
+          <input id="input-new-note" style={{ width: '240px' }}value={text} onChange={this.handleChangeText} />
+          <Button id="btn-add" onClick={this.handleClickAddNote}>Add</Button>
         </div>
-        <ColorPicker colors={colors} selectedColor={selectedColor} onChange={this.handleChangeColor} />
+        <div style={{ marginTop: '24px' }}>
+          <ColorPicker colors={colors} selectedColor={selectedColor} onChange={this.handleChangeColor} />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Button id="btn-save" onClick={this.handleClickSave}>Save</Button>
+        </div>
         <div className='notes'>
         { 
           notes.map((note, index) => (
