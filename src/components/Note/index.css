@@ -1,0 +1,28 @@
+.note {
+	height: 150px;
+	width: 150px;
+	margin: 10px 20px 10px 0;
+	padding: 10px;
+	font-size: 14px;
+	display: inline-block;
+	position: relative;
+}
+
+.note .icon-delete {
+	color: white;
+	position: absolute;
+	right: 2px;
+	top: 2px;
+	cursor: pointer;
+}
+
+.note-text {
+	padding-right: 10px;
+	width: 140px;
+	height: 130px;
+	background-color: transparent;
+	border: solid 0px transparent;
+	resize: none;
+	overflow-y: auto;
+	outline: none;
+}

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Note /> renders Note element correctly 1`] = `
+<div
+  className="note"
+  style={
+    Object {
+      "backgroundColor": "lightblue",
+    }
+  }
+>
+  <i
+    className="fa fa-times-circle icon-delete"
+  />
+  <textarea
+    className="note-text"
+    value="hello"
+  />
+</div>
+`;

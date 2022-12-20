@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> renders correctly 1`] = `
+<div
+  className="App"
+>
+  <h1
+    className="title center"
+  >
+    Notemi
+  </h1>
+  <span
+    className="btn"
+    id="btn-save"
+    onClick={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#2196f3",
+      }
+    }
+  >
+    Save
+  </span>
+  <div
+    className="input-note"
+  >
+    <input
+      id="input-new-note"
+      onChange={[Function]}
+      value=""
+    />
+    <span
+      className="btn"
+      id="btn-add"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#2196f3",
+        }
+      }
+    >
+      Add note
+    </span>
+  </div>
+  <div
+    className="color-picker"
+  >
+    <form
+      id="select-color-picker"
+      onChange={[Function]}
+    >
+      <span>
+        <input
+          checked={true}
+          className="color-picker-item"
+          name="color-picker"
+          onChange={[Function]}
+          type="radio"
+          value="blue"
+        />
+        <span>
+          blue
+        </span>
+      </span>
+      <span>
+        <input
+          checked={false}
+          className="color-picker-item"
+          name="color-picker"
+          onChange={[Function]}
+          type="radio"
+          value="grey"
+        />
+        <span>
+          grey
+        </span>
+      </span>
+      <span>
+        <input
+          checked={false}
+          className="color-picker-item"
+          name="color-picker"
+          onChange={[Function]}
+          type="radio"
+          value="green"
+        />
+        <span>
+          green
+        </span>
+      </span>
+    </form>
+  </div>
+  <div
+    className="notes"
+  />
+</div>
+`;
