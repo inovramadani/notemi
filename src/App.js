@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
+import queryString from 'query-string'
 
-import { db, docName } from './firebase'
+import { db } from './firebase'
 
 import './App.css'
 import Button from './components/Button'
 import Note from './components/Note'
 import ColorPicker from './components/ColorPicker'
 
+let docName = 'user1'
 class App extends Component {
   state = {
     title: 'Notemi',
@@ -52,6 +54,8 @@ class App extends Component {
   }
 
   componentWillMount() {
+    const { user } = queryString.parse(window.location.search)
+    if (user) docName = user
     this.loadData()
   }
 
